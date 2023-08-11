@@ -196,7 +196,7 @@ router.get('/username/:value', async(req,res)=>{
         console.log(filename);
   
         try {
-          const file = filename;;
+          const file = filename;
           const userId = req.params.userid;
           console.log('id for upload is ',userId)
           const image = await SignupData.updateOne({ _id: userId }, { $set: { pic: file } });
@@ -208,5 +208,30 @@ router.get('/username/:value', async(req,res)=>{
       }
     });
   });
+
+
+
+  // Endpoint to get the user's profile picture URL
+router.get('/getProfilePicture/:userid', async (req, res) => {
+  try {
+    const userId = req.params.userid;
+    // Assuming you have a mongoose model named SignupData for users
+    // Replace "SignupData" with your actual model name for users.
+    const user = await SignupData.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Assuming the user model has a "pic" field that stores the profile picture filename
+    // Replace "pic" with the field name you use to store the profile picture filename.
+    const profilePictureUrl = `/uploads/${user.pic}`; // Assuming the profile pictures are stored in the 'uploads' directory
+    res.status(200).json({ profilePictureUrl });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error fetching profile picture' });
+  }
+});
+
   
   module.exports = router

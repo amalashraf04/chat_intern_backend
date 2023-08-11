@@ -4,7 +4,6 @@ const bodyparser = require('body-parser');
 const app = express();
 
 
-
 app.use(cors());
 app.use(bodyparser.json());
 app.use(express.json());
@@ -103,6 +102,12 @@ socket.on('send_message',async (msg) => {                               // recei
   await storeMessage(room.room, msg)
 });
 
+socket.on('send_image',async(msg)=>{
+
+  await io.to(room.room).emit('new_message', msg);                    // returning the messages to frontend
+  await storeMessage(room.room, msg)
+})
+
   socket.on('disconnect', () => {
     console.log('a user disconnected!');
   });
@@ -112,15 +117,15 @@ socket.on('send_message',async (msg) => {                               // recei
 const invite = require('./routes/friend');
 app.use('/',invite);
 
+const path = require('path');
+app.use(express.static('./dist/Frontend/'))
+app.get('/*', function(req, res) { res.sendFile(path.join(__dirname + '/dist/Frontend/index.html')); });
 
-app.listen(5000,()=>{
-    console.log("server running at 5000")
+
+// Serve the 'uploads' directory as a static directory
+app.use('/uploads', express.static('uploads'));
+
+app.listen(3000,()=>{
+    console.log("server running at 3000")
 })
-httpServer.listen(5001, () => console.log(`listening on port 5001`));
-
-
-
-
-
-
-
+httpServer.listen(3001, () => console.log(`listening on port 3001`));

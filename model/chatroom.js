@@ -10,7 +10,12 @@ const chatSchema = new mongoose.Schema({
         messages: [{
             msg: String,
             sender: String,
-            receiver: String
+            receiver: String,
+            time: String,
+            image:{
+                data : Buffer,
+                contentType : String,
+              }
         }]
       
   
