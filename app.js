@@ -118,8 +118,8 @@ const invite = require('./routes/friend');
 app.use('/',invite);
 
 const path = require('path');
-app.use(express.static('./dist/Frontend/'))
-app.get('/*', function(req, res) { res.sendFile(path.join(__dirname + '/dist/Frontend/index.html')); });
+app.use(express.static('./dist/frontend/'))
+app.get('/*', function(req, res) { res.sendFile(path.join(__dirname + '/dist/frontend/index.html')); });
 
 
 // Serve the 'uploads' directory as a static directory
