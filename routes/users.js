@@ -4,7 +4,7 @@ var router = express.Router();
 const bcrypt = require('bcryptjs');
 
 //existing username
-router.get('/username/:value', async(req,res)=>{
+router.get('/api/username/:value', async(req,res)=>{
     try {
         const name = req.params.value;
         console.log(name);
@@ -20,8 +20,8 @@ router.get('/username/:value', async(req,res)=>{
   
   })
   
-    // to display profileuser details 
-    router.get('/uniquelogin/:userid',async(req,res)=>{
+   
+    router.get('/api/uniquelogin/:userid',async(req,res)=>{
         console.log("data reached unique user backend")
       try {
         let id = req.params.userid
@@ -37,7 +37,7 @@ router.get('/username/:value', async(req,res)=>{
   
       }
     })
-    router.get('/chatroom/:userid/:fid',async(req,res)=>{
+    router.get('/api/chatroom/:userid/:fid',async(req,res)=>{
   
       console.log('reached friend details backend')
       try {
@@ -56,7 +56,7 @@ router.get('/username/:value', async(req,res)=>{
       }
     })
   
-    router.get('/active/:username',async(req,res)=>{
+    router.get('/api/active/:username',async(req,res)=>{
       console.log('reached online status backend')
   
       try {
@@ -76,7 +76,7 @@ router.get('/username/:value', async(req,res)=>{
   
   
     //logout
-    router.get('/logout/:userid',async(req,res)=>{
+    router.get('/api/logout/:userid',async(req,res)=>{
       console.log('reached logout backend')
   
       try {
@@ -92,7 +92,7 @@ router.get('/username/:value', async(req,res)=>{
       }
     })
   
-  router.post('/block',async (req,res)=>{
+  router.post('/api/block',async (req,res)=>{
     try {
       let profileuser = req.body.data.sender;
       let blockuser = req.body.data.recipient
@@ -109,7 +109,7 @@ router.get('/username/:value', async(req,res)=>{
       console.log(error);
     }
   })
-  router.post('/unblock',async (req,res)=>{
+  router.post('/api/unblock',async (req,res)=>{
     try {
       let profileuser = req.body.data.sender;
       let blockuser = req.body.data.recipient
@@ -127,7 +127,7 @@ router.get('/username/:value', async(req,res)=>{
   })
   
   // for muting a user
-  router.post('/mute_users', async(req, res)=>{
+  router.post('/api/mute_users', async(req, res)=>{
     try {
         console.log("from frontend ", req.body);
         let name = req.body.data.sender
@@ -145,7 +145,7 @@ router.get('/username/:value', async(req,res)=>{
   })
   
   // for unmuting a user
-  router.post('/unmute_users', async(req, res)=>{
+  router.post('/api/unmute_users', async(req, res)=>{
     try {
         console.log("from frontend ", req.body);
         let name = req.body.data.sender
@@ -185,7 +185,7 @@ router.get('/username/:value', async(req,res)=>{
   const upload = multer({ storage: storage }).single('file');
   router.use(express.static('uploads'));
   
-  router.post('/file/:userid', (req, res) => {
+  router.post('/api/file/:userid', (req, res) => {
     upload(req, res, async (err) => {
       if (err) {
         console.log(err);
@@ -212,7 +212,7 @@ router.get('/username/:value', async(req,res)=>{
 
 
   // Endpoint to get the user's profile picture URL
-router.get('/getProfilePicture/:userid', async (req, res) => {
+router.get('/api/getProfilePicture/:userid', async (req, res) => {
   try {
     const userId = req.params.userid;
     // Assuming you have a mongoose model named SignupData for users

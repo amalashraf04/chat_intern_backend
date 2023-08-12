@@ -3,7 +3,7 @@ const SignupData = require('../model/signup')
 const router = express.Router();
 
 
-router.post('/friend/:id', async (req, res) => {
+router.post('/api/friend/:id', async (req, res) => {
   try {
     let data = req.body.name;
     let id = req.params.id;

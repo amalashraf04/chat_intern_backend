@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 
 
-router.post('/signup',async(req,res)=>{
+router.post('/api/signup',async(req,res)=>{
     // console.log("data reached backend")
     try {
         let { confirmpassword, ...user } = req.body;
@@ -87,7 +87,7 @@ function verifyToken(req,res,next){
 }
 
 
-router.post('/login',    async (req, res) => {
+router.post('/api/login',    async (req, res) => {
     try {
       const { email, password } = req.body;
         console.log(email)
